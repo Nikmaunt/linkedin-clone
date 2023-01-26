@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef, LegacyRef} from 'react';
 import './Posts.css'
 import {Avatar, SvgIconTypeMap} from "@mui/material";
 import InputOption from "../feed/InputOption";
@@ -9,18 +9,18 @@ import SendIcon from '@mui/icons-material/Send';
 
 
 type  PostsPropsType = {
-    name?: string
+    name: string
     description?: string
     message?: string
     photoUrl?: string
 }
 
 
-const Posts = ({name, description, message, photoUrl}: PostsPropsType) => {
+const Posts =  forwardRef (({name, description, message, photoUrl}: PostsPropsType,ref:LegacyRef<HTMLDivElement> | undefined) => {
     return (
-        <div className='post'>
+        <div ref={ref} className='post'>
             <div className="post_header">
-                <Avatar/>
+                <Avatar src={photoUrl}>{name[0]}</Avatar>
                 <div className="post_info">
                     <h2>{name}</h2>
                     <p>{description}</p>
@@ -38,6 +38,6 @@ const Posts = ({name, description, message, photoUrl}: PostsPropsType) => {
             </div>
         </div>
     );
-};
+})
 
 export default Posts;

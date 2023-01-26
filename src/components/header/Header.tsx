@@ -10,16 +10,17 @@ import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {useDispatch} from "react-redux";
-import {logout} from "../../redux/userSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {logout, selectUser} from "../../redux/userSlice";
 import firebase from "firebase/compat";
 import {auth} from "../../firebase";
+import {AppDispatch} from "../../redux/store";
 
 
 const Header = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
+
     const logoutOfApp = () => {
-         // @ts-ignore
         dispatch(logout())
          auth.signOut()
     }

@@ -9,9 +9,9 @@ type HeaderOptionPropsType = {
     onClick?: () => void
 }
 
-const HeaderOption = ({Icon,title,avatar}:HeaderOptionPropsType) => {
+const HeaderOption = ({Icon,title,avatar, onClick}:HeaderOptionPropsType) => {
     return (
-        <div className='headerOption'>
+        <div onClick={onClick} className='headerOption'>
             {Icon && <Icon className='headerOption_icon'/>}
             {avatar && (
                 <Avatar className='headerOption_icon' src={avatar}/>

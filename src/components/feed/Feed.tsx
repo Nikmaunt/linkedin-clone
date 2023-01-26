@@ -10,6 +10,10 @@ import Posts from "../posts/Posts";
 import {db} from "../../firebase";
 import {DocumentData} from "@firebase/firestore-types";
 import firebase from "firebase/compat/app";
+import {useSelector} from "react-redux";
+import {selectUser} from "../../redux/userSlice";
+import {RootState} from "../../redux/store";
+import FlipMove from "react-flip-move";
 
 export type DataType = {
     id: string;
@@ -22,11 +26,18 @@ export type DataType = {
 
 type PostsType = {
     id:string
-    doc?:DataType |DocumentData
+    doc?:DataType | DocumentData
 }
+
+export type UserType = {
+    displayName: string;
+    email:string
+    photoUrl:string
+};
 
 
 const Feed = () => {
+    const user = useSelector<RootState,UserType >(selectUser)
 
     const [posts, setPosts] = useState<PostsType[]>([])
     const [input, setInput] = useState<string>('')
@@ -42,11 +53,12 @@ const Feed = () => {
     },[])
     const sendPostHandler = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+
         db.collection('posts').add({
-            name: 'Nick',
-            description: 'this is the test',
+            name: user?.displayName,
+            description:user?.email,
             message: input,
-            photoUrl: '',
+            photoUrl:user?.photoUrl || "",
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
         setInput('')
@@ -72,15 +84,18 @@ const Feed = () => {
                     <InputOption Icon={CalendarViewDayIcon} title={'Write article'} color={'#7FC15E'}/>
                 </div>
             </div>
-            {posts?.map(({id,doc}) => (
-                <Posts
-                    key={id}
-                    name={doc?.name}
-                    description={doc?.description}
-                    message={doc?.message}
-                    photoUrl={doc?.photoUrl}
-                />
-            ))}
+            <FlipMove>
+                {posts?.map(({id,doc}) => (
+                    <Posts
+                        key={id}
+                        name={doc?.name}
+                        description={doc?.description}
+                        message={doc?.message}
+                        photoUrl={doc?.photoUrl}
+                    />
+                ))}
+            </FlipMove>
+
 
                <Posts  name={'Nick'} description={'Test message'} message={'WOW this worked'} />
 

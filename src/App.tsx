@@ -8,6 +8,7 @@ import {login, logout, selectUser} from "./redux/userSlice";
 import Login from "./components/login/Login";
 import firebase from "firebase/compat";
 import {auth} from "./firebase";
+import Widgets from "./components/widgets/Widgets";
 
 
 function App() {
@@ -23,7 +24,6 @@ function App() {
                     photoUrl: userAuth.photoURL,
                 }))
             } else {
-                // @ts-ignore
                 dispatch(logout())
             }
         })
@@ -36,7 +36,7 @@ function App() {
                 <div className="app_body">
                     <Sidebar/>
                     <Feed/>
-                    {/*widgets*/}
+                    <Widgets/>
                 </div>
             )}
         </div>
