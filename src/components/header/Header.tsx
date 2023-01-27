@@ -19,7 +19,6 @@ import {AppDispatch} from "../../redux/store";
 
 const Header = () => {
     const dispatch = useDispatch<AppDispatch>()
-
     const logoutOfApp = () => {
         dispatch(logout())
          auth.signOut()

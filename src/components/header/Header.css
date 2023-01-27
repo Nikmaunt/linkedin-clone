@@ -36,7 +36,16 @@
     outline: none;
     border: none;
     background: none;
+
 }
+
+@media screen and (max-width: 1129px) {
+    .header {
+       justify-content: space-between;
+
+    }
+}
+
 
 .header_right {
     display: flex;
